@@ -22,15 +22,15 @@ Search and replace the following placeholders throughout the project:
 
 ### 2. Key Files to Edit
 
-#### `pyproject.toml` (Lines 2-11, 38-39)
+#### `pyproject.toml` (Lines 5-15)
 ```toml
+[tool.poetry]
 name = "your-project-name"
+version = "0.1.0"
 description = "Your project description"
-authors = [{name = "Your Name", email = "your.email@example.com"}]
-
-[project.urls]
-Homepage = "https://github.com/your-username/your-project-name"
-Repository = "https://github.com/your-username/your-project-name"
+authors = ["Your Name <your.email@example.com>"]
+homepage = "https://github.com/your-username/your-project-name"
+repository = "https://github.com/your-username/your-project-name"
 ```
 
 #### `LICENSE` (Line 3)
@@ -50,26 +50,26 @@ If you want to use your project name instead of `src/`:
 ### 3. Set Up Development Environment
 
 ```bash
-# Create virtual environment
-python3 -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+# Install Poetry (if not already installed)
+curl -sSL https://install.python-poetry.org | python3 -
 
-# Install development dependencies
-pip install -e ".[dev]"
+# Install dependencies
+poetry install --with dev
 
 # Run tests
-python test.py
+poetry run python test.py
 ```
 
 ### 4. Add Your Code
 
 - Add your source code in the `src/` directory
 - Add tests in the `tests/` directory
-- Update dependencies in `pyproject.toml` under `dependencies = []`
+- Update dependencies in `pyproject.toml` under `[tool.poetry.dependencies]`
 
 ## Features
 
-- Modern PEP 621 compliant `pyproject.toml`
+- Poetry for dependency management and packaging
+- Modern PEP 621 compatible `pyproject.toml`
 - Pre-configured development tools:
   - `pytest` for testing
   - `ruff` for linting and formatting
@@ -97,25 +97,25 @@ python test.py
 
 Run linting:
 ```bash
-ruff check .
-pylint ./src/**/*.py ./tests/**/*.py
+poetry run ruff check .
+poetry run pylint ./src/**/*.py ./tests/**/*.py
 ```
 
 Run type checking:
 ```bash
-pyright src tests
+poetry run pyright src tests
 ```
 
 Run formatting:
 ```bash
-ruff format .
+poetry run ruff format .
 ```
 
 Run tests:
 ```bash
-pytest tests/ -v
+poetry run pytest tests/ -v
 # or
-python test.py
+poetry run python test.py
 ```
 
 ## License

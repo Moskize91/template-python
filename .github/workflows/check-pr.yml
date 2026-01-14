@@ -18,18 +18,23 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Setup Poetry
+        uses: abatilo/actions-poetry@v3
+        with:
+          poetry-version: "2.1.3"
+
       - name: Install dependencies
         run: |
-          pip install -e ".[dev]"
+          poetry install --with dev
 
       - name: Run pyright checking
         run: |
-          pyright src tests
+          poetry run pyright src tests
 
       - name: Run linting
         run: |
-          pylint ./src/**/*.py ./tests/**/*.py
+          poetry run pylint ./src/**/*.py ./tests/**/*.py
 
       - name: Run tests
         run: |
-          python test.py
+          poetry run python test.py

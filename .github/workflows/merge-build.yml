@@ -16,10 +16,11 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install build tools
-        run: |
-          pip install build
+      - name: Setup Poetry
+        uses: abatilo/actions-poetry@v3
+        with:
+          poetry-version: "2.1.3"
 
       - name: Build package
         run: |
-          python -m build
+          poetry build
